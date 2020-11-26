@@ -23,7 +23,7 @@ export default class ArtistList extends Component {
 	}
 
 	componentDidMount() {
-		$('#' + this.state.uid).accordion({exclusive: false});
+		$('#' + this.state.uid).accordion({exclusive: true, animateChildren: false, duration: 200});
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -45,6 +45,14 @@ export default class ArtistList extends Component {
 
 	search(e) {
 		let query = e.target.value;
+		if (e.key == "Backspace") {
+			console.log(query);
+		}
+		if (e.key == "Backspace" && query == "") {
+			// Reset everything
+			//this.props.events.publish({event: "browserSelected", data: {}})
+			this.loadArtists();
+		}
 		if (e.key != "Enter") {
 			return;
 		}
@@ -71,6 +79,9 @@ export default class ArtistList extends Component {
 					name: "Album results",
 					albums: result.album,
 				}
+				if (result.artist === null) {
+					result.artist = [];
+				}
 				result.artist.splice(0, 0, fakeArtist);
 				this.setState({artists: result.artist, loaded: true, error: null})
 			}.bind(this),
@@ -85,10 +96,7 @@ export default class ArtistList extends Component {
 	handleReset(e) {
 		let query = e.target.value;
 		if (query == "") {
-			// Reset everything
-			console.log(query);
-			this.props.events.publish({event: "browserSelected", data: {}})
-			this.loadArtists();
+			
 		}
 	}
 
@@ -108,7 +116,7 @@ export default class ArtistList extends Component {
 			<div className="ui inverted basic segment">
 				<div className="ui inverted transparent fluid left icon input">
 					<i className="search icon"></i>
-					<input type="text" placeholder="Search..." onKeyDown={this.search} onChange={this.handleReset}/>
+					<input type="text" placeholder="Search..." onKeyUp={this.search} onChange={this.handleReset}/>
 				</div>
 				<div className="ui inverted divider"></div>
 				<div className="ui inverted fluid accordion" id={this.state.uid}>
@@ -133,7 +141,6 @@ export class Artist extends Component {
 		this.onClick = this.onClick.bind(this);
 
 		if (this.props.data.albums !== undefined) {
-			console.log(this.props.data.albums);
 			this.state.albums = this.props.data.albums;
 			this.state.loaded = true;
 		}
@@ -170,10 +177,10 @@ export class Artist extends Component {
 		}
 
 		return (
-			<div key={this.props.data.id} onClick={this.onClick}>
+			<div key={this.props.data.id} onClick={this.onClick} className="artist">
 				<div className="title">
 					<i className="dropdown icon"></i>
-					{this.props.data.name} {this.props.data.albumCount ? "(" + this.props.data.albumCount + ")" : ""}
+					{this.props.data.name}
 				</div>
 				<div className="ui secondary inverted segment content">
 					<div className="ui inverted tiny selection list">
@@ -208,12 +215,18 @@ class Album extends Component {
 
 	render() {
 		var year = this.props.data.year ? '[' + this.props.data.year + ']' : '';
+		var description = year;
+		if (this.props.data.songCount !== undefined && this.props.data.songCount > 0) {
+			description += " " + this.props.data.songCount + " tracks";
+		} else {
+			description = this.props.data.artist;
+		}
 		return (
-			<div className="item" onClick={this.onClick}>
+			<div className="item" onClick={this.onClick} title={this.props.data.name}>
 				<CoverArt subsonic={this.props.subsonic} id={this.props.data.coverArt} size={this.props.iconSize} />
 				<div className="content">
 					<div className="header">{this.props.data.name}</div>
-					<div className="description">{year} {this.props.data.songCount} tracks</div>
+					<div className="description">{description}</div>
 					<div className="extra">
 					</div>
 				</div>

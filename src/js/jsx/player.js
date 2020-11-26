@@ -295,27 +295,25 @@ export default class Player extends Component {
 							<div className="meta">
 								<PlayerPlayingInfo events={this.props.events} playing={this.state.playing} />
 							</div>
-							<div className="description">
-								<table><tbody>
-									<tr>
-										<td className="controls">
-											<div className="ui black icon buttons">
-												<PlayerPriorButton key="prior" events={this.props.events} />
-												<PlayerPlayToggleButton key="play" events={this.props.events} />
-												<PlayerStopButton key="stop" events={this.props.events} />
-												<PlayerNextButton key="next" events={this.props.events} />
-												<PlayerShuffleButton key="shuffle" events={this.props.events} />
-												<PlayerPositionDisplay key="time" events={this.props.events} />
-											</div>
-										</td>
-										<td className="progress">
-											<PlayerProgress key="progress" events={this.props.events} />
-										</td>
-										<td className="volume">
-											<PlayerVolume key="volume" events={this.props.events} volume={this.state.volume} />
-										</td>
-									</tr>
-								</tbody></table>
+						</div>
+						<div className="description">
+							<div className="controls">
+								<div className="ui black icon buttons">
+									<PlayerPriorButton key="prior" events={this.props.events} />
+									<PlayerPlayToggleButton key="play" events={this.props.events} />
+									<PlayerStopButton key="stop" events={this.props.events} />
+									<PlayerNextButton key="next" events={this.props.events} />
+									<PlayerShuffleButton key="shuffle" events={this.props.events} />
+									<PlayerPositionDisplay key="time" events={this.props.events} />
+								</div>
+							</div>
+							<div className="progress-and-volume">
+								<div className="song-progress">
+									<PlayerProgress key="progress" events={this.props.events} />
+								</div>
+								<div className="volume">
+									<PlayerVolume key="volume" events={this.props.events} volume={this.state.volume} />
+								</div>
 							</div>
 						</div>
 					</div>
@@ -424,8 +422,7 @@ class PlayerProgress extends Component {
 		var loadingProgress = {width: this.state.loadingProgress + "%"};
 		return (
 			<div className="player-progress">
-				<div className="ui red progress">
-					<i className="clock icon"></i>
+				<div className="ui blue progress">
 					<div className="track bar" style={playerProgress}></div>
 					<div className="loading bar" style={loadingProgress}></div>
 				</div>
@@ -470,7 +467,7 @@ class PlayerVolume extends Component {
 		var playerVolume = {width: (this.props.volume*100) + "%"};
 		return (
 			<div className="player-volume" onMouseDown={this.mouseDown} onMouseMove={this.mouseMove} onMouseUp={this.mouseUp}>
-				<div className="ui blue progress">
+				<div className="ui green progress">
 					<i className="volume up icon"></i>
 					<div className="bar" style={playerVolume}></div>
 				</div>
