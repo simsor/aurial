@@ -17,6 +17,7 @@ export default class ArtistList extends Component {
 		super(props, context);
 
 		this.search = this.search.bind(this);
+		this.handleReset = this.handleReset.bind(this);
 
 		this.loadArtists();
 	}
@@ -43,14 +44,56 @@ export default class ArtistList extends Component {
 	}
 
 	search(e) {
-		this.setState({search: e.target.value});
+		let query = e.target.value;
+		if (e.key != "Enter") {
+			return;
+		}
+
+		this.props.subsonic.search({
+			query: query,
+			songCount: 25,
+			success: function(result) {
+				if(result == undefined) {
+					return;
+				}
+
+				let fakeAlbum = {
+					name: "Search results",
+					duration: 0,
+					coverArt: "",
+					artist: "",
+					song: result.song,
+					songCount: result.song.length
+				}
+				this.props.events.publish({event: "browserSelected", data: {tracks: fakeAlbum}})
+
+				let fakeArtist = {
+					name: "Album results",
+					albums: result.album,
+				}
+				result.artist.splice(0, 0, fakeArtist);
+				this.setState({artists: result.artist, loaded: true, error: null})
+			}.bind(this),
+			error: function(error) {
+				alert(error);
+			}
+		})
+
+		return false;
+	}
+
+	handleReset(e) {
+		let query = e.target.value;
+		if (query == "") {
+			// Reset everything
+			console.log(query);
+			this.props.events.publish({event: "browserSelected", data: {}})
+			this.loadArtists();
+		}
 	}
 
 	render() {
 		var artists = this.state.artists
-		.filter(function (artist) {
-			return this.state.search == '' || artist.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
-		}.bind(this))
 		.map(function (artist) {
 			return (
 				<Artist key={artist.id} subsonic={this.props.subsonic} events={this.props.events} data={artist} iconSize={this.props.iconSize} />
@@ -65,7 +108,7 @@ export default class ArtistList extends Component {
 			<div className="ui inverted basic segment">
 				<div className="ui inverted transparent fluid left icon input">
 					<i className="search icon"></i>
-					<input type="text" placeholder="Search..." value={this.state.search} onChange={this.search}/>
+					<input type="text" placeholder="Search..." onKeyDown={this.search} onChange={this.handleReset}/>
 				</div>
 				<div className="ui inverted divider"></div>
 				<div className="ui inverted fluid accordion" id={this.state.uid}>
@@ -88,6 +131,12 @@ export class Artist extends Component {
 
 		this.loadAlbums = this.loadAlbums.bind(this);
 		this.onClick = this.onClick.bind(this);
+
+		if (this.props.data.albums !== undefined) {
+			console.log(this.props.data.albums);
+			this.state.albums = this.props.data.albums;
+			this.state.loaded = true;
+		}
 	}
 
 	loadAlbums() {
@@ -124,7 +173,7 @@ export class Artist extends Component {
 			<div key={this.props.data.id} onClick={this.onClick}>
 				<div className="title">
 					<i className="dropdown icon"></i>
-					{this.props.data.name} ({this.props.filter ? Object.keys(this.props.filter).length : this.props.data.albumCount})
+					{this.props.data.name} {this.props.data.albumCount ? "(" + this.props.data.albumCount + ")" : ""}
 				</div>
 				<div className="ui secondary inverted segment content">
 					<div className="ui inverted tiny selection list">
