@@ -15,15 +15,19 @@
 		rpc.login({clientId: "781264582333300766"});
 
 		function updateNowPlaying(artist, album, song, elapsed, total) {
-			let remaining = total - elapsed;
-			let startTimestamp = Date.now() - elapsed;
-			rpc.setActivity({
-				details: song,
-				state: artist,
-				largeImageText: album,
-				largeImageKey: "subsonic",
-				startTimestamp,
-			});
+			if (localStorage.getItem('discordPresence') === "true") {
+				let remaining = total - elapsed;
+				let startTimestamp = Date.now() - elapsed;
+				rpc.setActivity({
+					details: song,
+					state: artist,
+					largeImageText: album,
+					largeImageKey: "subsonic",
+					startTimestamp,
+				});
+			} else {
+				stopNowPlaying();
+			}
 		}
 
 		function stopNowPlaying() {

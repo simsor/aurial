@@ -19,6 +19,7 @@ export default class Settings extends Component {
 		backgroundArt: localStorage.getItem('backgroundArt') === 'true',
 		persistQueue: localStorage.getItem('persistQueue') === 'true',
 		repeatQueue: localStorage.getItem('repeatQueue') === 'true',
+		discordPresence: localStorage.getItem('discordPresence') === 'true',
 		trackBuffer: localStorage.getItem('trackBuffer') || '0',
 		testState: TEST_UNTESTED
 	};
@@ -49,6 +50,7 @@ export default class Settings extends Component {
 		localStorage.setItem('persistQueue', this.state.persistQueue);
 		localStorage.setItem('repeatQueue', this.state.repeatQueue);
 		localStorage.setItem('trackBuffer', this.state.trackBuffer);
+		localStorage.setItem('discordPresence', this.state.discordPresence);
 
 		Messages.message(this.props.events, "Settings saved.", "success", "Save");
 
@@ -129,6 +131,7 @@ export default class Settings extends Component {
 			case "persistQueue": this.setState({persistQueue: e.target.checked}); break;
 			case "repeatQueue": this.setState({repeatQueue: e.target.checked}); break;
 			case "trackBuffer": this.setState({trackBuffer: e.target.value}); break;
+			case "discordPresence": this.setState({discordPresence: e.target.checked}); break;
 		}
 
 		this.setState({testState: TEST_UNTESTED});
@@ -197,6 +200,12 @@ export default class Settings extends Component {
 						<div className="ui checkbox">
 							<input name="repeatQueue" type="checkbox" onChange={this.change} checked={this.state.repeatQueue}/>
 							<label>Repeat queue (restart playing once the end of the queue has been reached)</label>
+						</div>
+					</div>
+					<div className="field">
+						<div className="ui checkbox">
+							<input name="discordPresence" type="checkbox" onChange={this.change} checked={this.state.discordPresence}/>
+							<label>Enable Discord Rich Presence</label>
 						</div>
 					</div>
 
