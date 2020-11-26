@@ -47,7 +47,6 @@ export default class TrackList extends Component {
 						<th className="artist">Artist</th>
 						<th className="title">Title</th>
 						<th className="album">Album</th>
-						<th className="date">Date</th>
 						<th className="right aligned duration">Duration</th>
 					</tr>
 				</thead>
@@ -123,9 +122,6 @@ class Track extends Component {
 				<td>
 					{/* <CoverArt subsonic={this.props.subsonic} id={this.props.track.coverArt} size={this.props.iconSize} /> */}
 					{this.props.track.album}
-				</td>
-				<td>
-					{this.props.track.year}
 				</td>
 				<td className="right aligned">
 					{this.props.track.duration ? SecondsToTime(this.props.track.duration) : '?:??'}
