@@ -18,6 +18,10 @@ module.exports = {
     new CopyWebpackPlugin([{
       from: 'src/css',
       to: 'css'
+    }]),
+    new CopyWebpackPlugin([{  
+      from: "src/static",
+      to: 'static'
     }])
   ],
   module: {
