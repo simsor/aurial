@@ -5,8 +5,6 @@ function createWindow () {
         app.setAppUserModelId("Aurial Music Player");
     }
 
-    console.log(__dirname);
-
     // Create the browser window.
     let win = new BrowserWindow({
         width: 1200,
@@ -16,10 +14,13 @@ function createWindow () {
             nodeIntegration: true
         }
     });
-    //win.setMenu(null);
+
+    if (process.env["NODE_ENV"] == "production") {
+        win.setMenu(null);
+    }
 
     // and load the index.html of the app.
-    win.loadFile('index.html');
+    win.loadFile(__dirname + '/index.html');
 }
 
 app.on('ready', createWindow);

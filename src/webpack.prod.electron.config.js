@@ -1,35 +1,54 @@
 var path = require('path');
-var webpack = require('webpack');
+var webpack = require("webpack");
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 
-module.exports = {
-  target: "web",
+module.exports = [
+{
+  target: "electron-main",
+  entry: path.resolve(__dirname, "electron.js"),
+  output: {
+    path: path.resolve(__dirname, "..", "dist"),
+    filename: "electron.js"
+  },
+  node: {
+    __dirname: false
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+		  'process.env': {
+		    NODE_ENV: JSON.stringify('production')
+		  }
+		})
+  ]
+},
+{
+  target: "electron-renderer",
   entry: path.resolve(__dirname, 'js'),
   output: {
     path: path.resolve(__dirname, '..', 'dist'),
-    filename: 'index.js'
+    filename: 'render.js'
   },
   plugins: [
-		new webpack.DefinePlugin({
+    new webpack.DefinePlugin({
 		  'process.env': {
 		    NODE_ENV: JSON.stringify('production')
 		  }
 		}),
+    new HtmlWebpackPlugin({
+      title: 'Aurial',
+      template: 'src/index.electron.html'
+    }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false,
         dead_code: true
       }
     }),
-    new HtmlWebpackPlugin({
-      title: 'Aurial',
-      template: 'src/index.html'
-    }),
-		new CopyWebpackPlugin([
-			{from: 'src/css', to: 'css'},
-			{from: 'README.md'}
-    ]),
+    new CopyWebpackPlugin([{
+      from: 'src/css',
+      to: 'css'
+    }]),
     new CopyWebpackPlugin([{  
       from: "src/static",
       to: 'static'
@@ -50,4 +69,4 @@ module.exports = {
       }
     ]
   }
-};
+}];

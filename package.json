@@ -6,13 +6,22 @@
   "engines": {
     "node": ">=4.1.1"
   },
-  "main": "electron.js",
+  "main": "dist/electron.js",
   "scripts": {
-    "build-dev": "webpack --config src/webpack.dev.electron.config.js",
+    "build-gui-dev": "webpack --config src/webpack.dev.electron.config.js",
+    "build-gui-prod": "webpack --config src/webpack.prod.electron.config.js",
     "dist": "webpack --display-error-details --config src/webpack.dist.config.js",
     "watch": "webpack --progress --watch --config src/webpack.dev.config.js",
     "start": "webpack-dev-server --progress --config src/webpack.dev.config.js",
-    "gui-dev": "npm run build-dev && electron ./dist/electron.js"
+    "gui": "npm run build-gui-dev && electron ./dist/electron.js",
+    "pack": "npm run build-gui-prod && electron-builder --dir",
+    "pack-installer": "npm run build-gui-prod && electron-builder"
+  },
+  "build": {
+    "appId": "fr.sixfoisneuf.aurial",
+    "directories": {
+      "output": "build"
+    }
   },
   "author": "shrimpza",
   "dependencies": {
@@ -35,6 +44,7 @@
     "webpack-dev-server": "^2.11.5"
   },
   "devDependencies": {
-    "electron": "^11.0.3"
+    "electron": "^11.0.3",
+    "electron-builder": "^22.9.1"
   }
 }

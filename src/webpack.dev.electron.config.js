@@ -9,6 +9,9 @@ module.exports = [
   output: {
     path: path.resolve(__dirname, "..", "dist"),
     filename: "electron.js"
+  },
+  node: {
+    __dirname: false
   }
 },
 {
