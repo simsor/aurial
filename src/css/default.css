@@ -13,8 +13,8 @@
 @media screen and (min-width: 1000px) {
 	.browser-frame {
 		position: absolute;
-		top: 0; bottom: 0; left: 0;
-		width: 380px;
+		top: 0; bottom: 110px; left: 0;
+		width: 300px;
 		overflow: auto;
 
 		background-color: #1B1C1D;
@@ -34,7 +34,7 @@
 
 	.background-layer {
 		position: absolute;
-		top: 0; right: 0; left: 380px; bottom: 0;
+		top: 0; right: 0; left: 300px; bottom: 0;
 		background-repeat: no-repeat;
 		background-size: 100% auto;
 		opacity: 0.3;
@@ -43,8 +43,10 @@
 
 	.player-frame {
 		position: absolute;
-		top: 0; right: 0; left: 380px;
-		height: 100px;
+		bottom: 0px; right: 0; left: 0;
+		height: 110px;
+		border-top: 2px solid black;
+		box-sizing: border-box;
 	}
 
 	.player-frame .player {
@@ -78,7 +80,7 @@
 
 	.playlist-frame {
 		position: absolute;
-		top: 100px; right: 0; bottom: 0; left: 380px;
+		top: 0; right: 0; bottom: 110px; left: 300px;
 	}
 
 	.playlist-menu {
@@ -145,7 +147,7 @@
 
 	.messages {
 		position: absolute;
-		right: 10px; bottom: 10px;
+		right: 10px; top: 10px;
 		width: 400px;
 	}
 
