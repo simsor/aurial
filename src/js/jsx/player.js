@@ -27,7 +27,7 @@ export default class Player extends Component {
 		super(props, context);
 		props.events.subscribe({
 			subscriber: this,
-			event: ["playerPlay", "playerToggle", "playerStop", "playerNext", "playerPrevious", "playerEnqueue", "playerShuffle", "playerVolume"]
+			event: ["playerPlay", "playerToggle", "playerStop", "playerNext", "playerPrevious", "playerEnqueue", "playerShuffle", "playerVolume", "playerUpdated"]
 		});
 
 		if (props.persist === true) {
@@ -54,7 +54,12 @@ export default class Player extends Component {
 			case "playerEnqueue": this.enqueue(event.data.action, event.data.tracks); break;
 			case "playerShuffle": this.setState({shuffle: event.data}); break;
 			case "playerVolume": this.volume(event.data); break;
+			case "playerUpdated": this.updateDiscord(event.data); break;
 		}
+	}
+
+	updateDiscord(data) {
+		updateNowPlaying(data.track.artist, data.track.album, data.track.title, data.position, data.duration);
 	}
 
 	createPlayer(track) {
@@ -115,6 +120,7 @@ export default class Player extends Component {
 			this.setState({playing: playItem.track});
 		} else {
 			this.setState({playing: null});
+			stopNowPlaying();
 		}
 	}
 
@@ -195,6 +201,8 @@ export default class Player extends Component {
 			this.player.unload();
 		}
 		this.player = null;
+
+		stopNowPlaying();
 	}
 
 	volume(volume) {
