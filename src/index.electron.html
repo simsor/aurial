@@ -1,0 +1,40 @@
+<html lang="en">
+<head>
+	<title><%= htmlWebpackPlugin.options.title %></title>
+
+	<meta charset="utf-8" />
+
+	<script>
+		if (require !== undefined) {
+			window.$ = window.jQuery = require('jquery');
+		}
+
+		const DiscordRPC = require('discord-rpc');
+		const rpc = new DiscordRPC.Client({ transport: 'ipc' });
+		rpc.login({clientId: "781264582333300766"});
+
+		function updateNowPlaying(artist, album, song, elapsed, total) {
+			let remaining = total - elapsed;
+			let startTimestamp = Date.now() - elapsed;
+			rpc.setActivity({
+				details: song,
+				state: artist,
+				largeImageText: album,
+				largeImageKey: "subsonic",
+				startTimestamp,
+			});
+		}
+
+		function stopNowPlaying() {
+			rpc.clearActivity();
+		}
+	</script>
+	<script type="text/javascript" src="static/semantic.min.js"></script>
+	<link rel="stylesheet" href="static/semantic.min.css">
+
+	<link rel="icon" type="image/png" href="css/favicon.png">
+	<link rel="stylesheet" href="css/default.css">
+</head>
+<body>
+</body>
+</html>
