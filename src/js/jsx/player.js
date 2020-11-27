@@ -289,7 +289,7 @@ export default class Player extends Component {
 							{coverArt}
 						</div>
 						<div className="content">
-							<div className="header">
+							<div className="ui small header">
 								<PlayerPlayingTitle events={this.props.events} playing={this.state.playing} />
 							</div>
 							<div className="meta">
@@ -298,16 +298,22 @@ export default class Player extends Component {
 						</div>
 						<div className="description">
 							<div className="controls">
-								<div className="ui black icon buttons">
+								<div className="ui icon">
 									<PlayerPriorButton key="prior" events={this.props.events} />
 									<PlayerPlayToggleButton key="play" events={this.props.events} />
-									<PlayerStopButton key="stop" events={this.props.events} />
+									{/*<PlayerStopButton key="stop" events={this.props.events} />*/}
 									<PlayerNextButton key="next" events={this.props.events} />
-									<PlayerShuffleButton key="shuffle" events={this.props.events} />
-									<PlayerPositionDisplay key="time" events={this.props.events} />
 								</div>
+								{/*
+								<div className="ui icon">
+									
+									<PlayerPositionDisplay key="time" events={this.props.events} />
+								</div>*/}
 							</div>
 							<div className="progress-and-volume">
+								<div className="shuffle-button">
+									<PlayerShuffleButton key="shuffle" events={this.props.events} />
+								</div>
 								<div className="song-progress">
 									<PlayerProgress key="progress" events={this.props.events} />
 								</div>
@@ -529,7 +535,7 @@ class PlayerPlayToggleButton extends Component {
 
 	render() {
 		return (
-			<button className={"ui icon button " + (this.state.enabled ? "" : "disabled")} onClick={this.onClick}>
+			<button className={"ui playButton icon button huge inverted circular " + (this.state.enabled ? "" : "disabled")} onClick={this.onClick}>
 				<i className={this.state.paused || !this.state.playing ? "play icon" : "pause icon"} />
 			</button>
 		);
@@ -615,7 +621,7 @@ class PlayerNextButton extends Component {
 
 	render() {
 		return (
-			<button className={"ui icon button " + (this.state.enabled ? "" : "disabled")} onClick={this.onClick}>
+			<button className={"ui icon button seekTrackButton inverted mini " + (this.state.enabled ? "" : "disabled")} onClick={this.onClick}>
 				<i className="fast forward icon" />
 			</button>
 		);
@@ -653,7 +659,7 @@ class PlayerPriorButton extends Component {
 
 	render() {
 		return (
-			<button className={"ui icon button " + (this.state.enabled ? "" : "disabled")} onClick={this.onClick}>
+			<button className={"ui icon button seekTrackButton inverted mini " + (this.state.enabled ? "" : "disabled")} onClick={this.onClick}>
 				<i className="fast backward icon" />
 			</button>
 		);
@@ -679,7 +685,7 @@ class PlayerShuffleButton extends Component {
 
 	render() {
 		return (
-			<button className="ui icon button" onClick={this.onClick}>
+			<button className="ui icon button mini inverted" onClick={this.onClick}>
 				<i className={"random icon " + (this.state.shuffle ? "red" : "")} />
 			</button>
 		);

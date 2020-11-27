@@ -61,7 +61,7 @@
 		/*order-top: 2px solid black;*/
 		box-sizing: border-box;
 
-		background: #505050;
+		background: #282828;
 	}
 
 	.player-frame div.header span {
@@ -92,19 +92,31 @@
 		height: 100%;
 	}
 
-	.player-frame .player div.controls {
-		margin: auto;
-		margin-bottom: 15px;
-		width: 50%;
+	.player-frame .player div.controls > div {
+		margin: 0px auto;
+		margin-bottom: 5px;
+		width: 163px;
+		display: block;
+	}
+
+	.player-frame .player div.controls .seekTrackButton {
+		position: relative;
+		top: -10px;
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+
+	.player-frame .player div.controls .playButton {
+		margin-right: 0px !important;
 	}
 
 	.player-frame .player div.progress-and-volume {
 		width: 100%;
 		white-space: nowrap;
+		height: 50px;
 	}
 
-	.player-frame .player div.progress-and-volume > .song-progress,
-	.player-frame .player div.progress-and-volume > .volume {
+	.player-frame .player div.progress-and-volume > div {
 		margin: 3px;
 		display: inline-block;
 	}
@@ -115,8 +127,14 @@
 		cursor: pointer;
 	}
 
+	.player-frame .player div.shuffle-button {
+		width: 50px;
+		white-space: nowrap;
+		float: left;
+	}
+
 	.player-frame .player div.song-progress {
-		width: calc(100% - 150px);
+		width: calc(100% - 150px - 50px);
 	}
 
 	.playlist-frame {
@@ -243,14 +261,6 @@
 
 .trackList .duration {
 	width: 10%;
-}
-
-.player .progress i {
-	position: absolute;
-	left: 2px;
-	top: -1px;
-	z-index: 1000;
-	font-size: 0.75em;
 }
 
 .player .player-progress .bar.track {
