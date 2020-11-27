@@ -15,41 +15,6 @@ design does not support other media types, such as video, podcasts or internet
 radio.
 
 
-## Live Demo
-
-- https://shrimpza.github.io/aurial/
-
-The latest build is always deployed at the above URL, feel free to make use of
-it for your own purposes, or play around with it prior to hosting your own copy.
-
-
-## Download and Installation
-
-For convenience, the latest automated build is available for download, so you
-do not need to configure or set up a build environment (if you do want to build
-it yourself, see the instructions below).
-
-- [aurial.tgz](https://shrimpza.github.io/aurial/aurial.tgz)
-
-To "install", simply extract the archive into a directory exposed via an HTTP
-service (there's no need for any server-side scripting or database), and browse
-to that location.
-
-Configuration is done on the "Settings" tab of the main application interface.
-
-
-## Screenshots
-
-Note that the current look and functionality may differ from what is shown
-here, as the application is still under development.
-
-![Browsing the library](https://i.imgur.com/O8AdgCH.png)
-
-![Playing some music](https://i.imgur.com/b0oLCp4.png)
-
-![Playlist support](https://i.imgur.com/xih3aT7.png)
-
-
 ## Building
 
 The project is built via NPM and [Webpack](https://webpack.github.io/).
@@ -59,7 +24,7 @@ root directory (alternatively, `yarn` may also be used):
 
 ```
 $ npm install
-$ npm run <watch|dist|start>
+$ npm run <watch|dist|start|gui|pack|pack-installer>
 ```
 
 A `dist` directory will be produced containing the built output, which may be
@@ -71,3 +36,7 @@ download; it recompiles code as changes are made. `dist` will produce
 uglified and minified output suitable for "production" deployment. `start` will
 run Aurial in Webpack's dev server on port 8080 (or next available port above
 that), and allows automatic reloading of the page as code changes are made.
+
+`gui` will build the app using Electron and run it. There is no auto-reload in this mode.
+
+`pack` and `pack-installer` will pack the application using `electron-builder` respectively in "directory" mode and in "installer" mode for the current platform. Don't hesitate to edit `package.json` if you want to build it for other platforms.
