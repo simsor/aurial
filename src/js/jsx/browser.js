@@ -205,6 +205,9 @@ class Album extends Component {
 			id: this.props.data.id,
 			success: function(data) {
 				this.props.events.publish({event: "browserSelected", data: {tracks: data.album}});
+
+				// Force the view to go back to "Selection"
+				$("a[data-tab=\"selection\"]").trigger("click");
 			}.bind(this),
 			error: function(err) {
 				console.error(this, err);
