@@ -428,7 +428,7 @@ class PlayerProgress extends Component {
 		var loadingProgress = {width: this.state.loadingProgress + "%"};
 		return (
 			<div className="player-progress">
-				<div className="ui blue progress">
+				<div className="ui blue progress inverted">
 					<div className="track bar" style={playerProgress}></div>
 					<div className="loading bar" style={loadingProgress}></div>
 				</div>
@@ -473,7 +473,7 @@ class PlayerVolume extends Component {
 		var playerVolume = {width: (this.props.volume*100) + "%"};
 		return (
 			<div className="player-volume" onMouseDown={this.mouseDown} onMouseMove={this.mouseMove} onMouseUp={this.mouseUp}>
-				<div className="ui green progress">
+				<div className="ui green progress inverted">
 					<i className="volume up icon"></i>
 					<div className="bar" style={playerVolume}></div>
 				</div>
