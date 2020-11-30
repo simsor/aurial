@@ -535,9 +535,9 @@ class PlayerPlayToggleButton extends Component {
 
 	render() {
 		return (
-			<button className={"ui playButton icon button huge inverted circular " + (this.state.enabled ? "" : "disabled")} onClick={this.onClick}>
+			<a className={"ui playButton icon button huge inverted circular " + (this.state.enabled ? "" : "disabled")} onClick={this.onClick}>
 				<i className={this.state.paused || !this.state.playing ? "play icon" : "pause icon"} />
-			</button>
+			</a>
 		);
 	}
 }
@@ -583,9 +583,9 @@ class PlayerStopButton extends Component {
 
 	render() {
 		return (
-			<button className={"ui icon button " + (this.state.enabled ? "" : "disabled")} onClick={this.onClick}>
+			<a className={"ui icon button " + (this.state.enabled ? "" : "disabled")} onClick={this.onClick}>
 				<i className="stop icon" />
-			</button>
+			</a>
 		);
 	}
 }
@@ -621,9 +621,9 @@ class PlayerNextButton extends Component {
 
 	render() {
 		return (
-			<button className={"ui icon button seekTrackButton inverted mini " + (this.state.enabled ? "" : "disabled")} onClick={this.onClick}>
+			<a className={"ui icon button seekTrackButton inverted circular mini " + (this.state.enabled ? "" : "disabled")} onClick={this.onClick}>
 				<i className="fast forward icon" />
-			</button>
+			</a>
 		);
 	}
 }
@@ -659,9 +659,9 @@ class PlayerPriorButton extends Component {
 
 	render() {
 		return (
-			<button className={"ui icon button seekTrackButton inverted mini " + (this.state.enabled ? "" : "disabled")} onClick={this.onClick}>
+			<a className={"ui icon button seekTrackButton inverted circular mini " + (this.state.enabled ? "" : "disabled")} onClick={this.onClick}>
 				<i className="fast backward icon" />
-			</button>
+			</a>
 		);
 	}
 }
