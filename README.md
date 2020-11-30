@@ -10,9 +10,21 @@ Aurial's aim is to provide a simple, intuitive and straight-forward interface
 to browse and play your music, and to be as easy to deploy as it is to
 configure and use.
 
-As such, it focusses exclusively on playback of your music library, and by
+As such, it focuses exclusively on playback of your music library, and by
 design does not support other media types, such as video, podcasts or internet
 radio.
+
+This fork aims at providing some quality-of-life improvements tailored to my needs, as well as Electron support.
+
+`master` should be automatically deployed to https://aurial.sixfoisneuf.fr if you want to try out the web version.
+
+## Screenshots
+
+![main interface](screenshots/main.png)
+
+![search results](screenshots/search.png)
+
+![discord integration](screenshots/discord.png)
 
 
 ## Building
