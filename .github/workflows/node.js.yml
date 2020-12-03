@@ -26,3 +26,9 @@ jobs:
         path: dist/*
         if-no-files-found: error
         retention-days: 1
+
+    - name: HTTP Request Action
+      uses: fjogeleit/http-request-action@v1.5.0
+      with:
+        url: "https://n8n.sixfoisneuf.fr/webhook/aurial-update"
+        method: GET
